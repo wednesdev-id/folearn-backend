@@ -430,6 +430,150 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiClassClass extends Struct.CollectionTypeSchema {
+  collectionName: 'classes';
+  info: {
+    displayName: 'Kelas';
+    pluralName: 'classes';
+    singularName: 'class';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::class.class'> &
+      Schema.Attribute.Private;
+    nama_kelas: Schema.Attribute.String & Schema.Attribute.Required;
+    publishedAt: Schema.Attribute.DateTime;
+    slug: Schema.Attribute.UID;
+    subjects: Schema.Attribute.Relation<'oneToMany', 'api::subject.subject'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiMaterialMaterial extends Struct.CollectionTypeSchema {
+  collectionName: 'materials';
+  info: {
+    displayName: 'Materi';
+    pluralName: 'materials';
+    singularName: 'material';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    deskripsi_materi: Schema.Attribute.Text;
+    is_published: Schema.Attribute.Boolean;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::material.material'
+    > &
+      Schema.Attribute.Private;
+    nama_materi: Schema.Attribute.String & Schema.Attribute.Required;
+    publishedAt: Schema.Attribute.DateTime;
+    slug: Schema.Attribute.UID;
+    sub_materials: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::sub-material.sub-material'
+    >;
+    subject: Schema.Attribute.Relation<'manyToOne', 'api::subject.subject'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiSubMaterialSubMaterial extends Struct.CollectionTypeSchema {
+  collectionName: 'sub_materials';
+  info: {
+    displayName: 'Sub Materi';
+    pluralName: 'sub-materials';
+    singularName: 'sub-material';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    konten: Schema.Attribute.RichText;
+    lampiran: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios',
+      true
+    >;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::sub-material.sub-material'
+    > &
+      Schema.Attribute.Private;
+    material: Schema.Attribute.Relation<'manyToOne', 'api::material.material'>;
+    nama_sub_materi: Schema.Attribute.String & Schema.Attribute.Required;
+    no_urut: Schema.Attribute.Integer & Schema.Attribute.Required;
+    publishedAt: Schema.Attribute.DateTime;
+    slug: Schema.Attribute.UID;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    video_link: Schema.Attribute.String;
+  };
+}
+
+export interface ApiSubjectSubject extends Struct.CollectionTypeSchema {
+  collectionName: 'subjects';
+  info: {
+    displayName: 'Mata Pelajaran';
+    pluralName: 'subjects';
+    singularName: 'subject';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    class: Schema.Attribute.Relation<'manyToOne', 'api::class.class'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    deskripsi: Schema.Attribute.Text;
+    icon: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    katergori_mapel: Schema.Attribute.Enumeration<
+      ['Wajib/Lokal', 'Pilihan/Tambahan']
+    >;
+    kompetensi_yang_dikembangkan: Schema.Attribute.Component<
+      'mata-pelajaran.kompetensi-item',
+      true
+    >;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::subject.subject'
+    > &
+      Schema.Attribute.Private;
+    materials: Schema.Attribute.Relation<'oneToMany', 'api::material.material'>;
+    nama_mapel: Schema.Attribute.String & Schema.Attribute.Required;
+    publishedAt: Schema.Attribute.DateTime;
+    slug: Schema.Attribute.UID;
+    tujuan_pembelajaran: Schema.Attribute.Component<
+      'mata-pelajaran.tujuan-pembelajaran-item',
+      true
+    >;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface PluginContentReleasesRelease
   extends Struct.CollectionTypeSchema {
   collectionName: 'strapi_releases';
@@ -940,6 +1084,10 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
+      'api::class.class': ApiClassClass;
+      'api::material.material': ApiMaterialMaterial;
+      'api::sub-material.sub-material': ApiSubMaterialSubMaterial;
+      'api::subject.subject': ApiSubjectSubject;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

@@ -1,0 +1,14 @@
+{
+  "collectionName": "components_mata_pelajaran_tujuan_pembelajaran_items",
+  "info": {
+    "displayName": "tujuan_pembelajaran_item"
+  },
+  "options": {},
+  "attributes": {
+    "isi_tujuan": {
+      "type": "string",
+      "required": true
+    }
+  },
+  "config": {}
+}

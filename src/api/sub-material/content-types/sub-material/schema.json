@@ -1,0 +1,48 @@
+{
+  "kind": "collectionType",
+  "collectionName": "sub_materials",
+  "info": {
+    "singularName": "sub-material",
+    "pluralName": "sub-materials",
+    "displayName": "Sub Materi"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nama_sub_materi": {
+      "type": "string",
+      "required": true
+    },
+    "slug": {
+      "type": "uid"
+    },
+    "konten": {
+      "type": "richtext"
+    },
+    "lampiran": {
+      "type": "media",
+      "multiple": true,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "video_link": {
+      "type": "string"
+    },
+    "no_urut": {
+      "type": "integer",
+      "required": true
+    },
+    "material": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::material.material",
+      "inversedBy": "sub_materials"
+    }
+  }
+}

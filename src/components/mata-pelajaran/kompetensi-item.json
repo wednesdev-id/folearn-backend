@@ -1,0 +1,21 @@
+{
+  "collectionName": "components_mata_pelajaran_kompetensi_items",
+  "info": {
+    "displayName": "kompetensi_item"
+  },
+  "options": {},
+  "attributes": {
+    "isi_kompetensi": {
+      "type": "string",
+      "required": true
+    },
+    "icon_kompetensi": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images"
+      ]
+    }
+  },
+  "config": {}
+}

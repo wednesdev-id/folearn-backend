@@ -1,0 +1,40 @@
+{
+  "kind": "collectionType",
+  "collectionName": "materials",
+  "info": {
+    "singularName": "material",
+    "pluralName": "materials",
+    "displayName": "Materi"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nama_materi": {
+      "type": "string",
+      "required": true
+    },
+    "slug": {
+      "type": "uid"
+    },
+    "deskripsi_materi": {
+      "type": "text"
+    },
+    "is_published": {
+      "type": "boolean"
+    },
+    "subject": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::subject.subject",
+      "inversedBy": "materials"
+    },
+    "sub_materials": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::sub-material.sub-material",
+      "mappedBy": "material"
+    }
+  }
+}

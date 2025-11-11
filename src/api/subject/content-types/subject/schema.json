@@ -1,0 +1,64 @@
+{
+  "kind": "collectionType",
+  "collectionName": "subjects",
+  "info": {
+    "singularName": "subject",
+    "pluralName": "subjects",
+    "displayName": "Mata Pelajaran"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nama_mapel": {
+      "type": "string",
+      "required": true
+    },
+    "slug": {
+      "type": "uid"
+    },
+    "deskripsi": {
+      "type": "text"
+    },
+    "icon": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "class": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::class.class",
+      "inversedBy": "subjects"
+    },
+    "materials": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::material.material",
+      "mappedBy": "subject"
+    },
+    "katergori_mapel": {
+      "type": "enumeration",
+      "enum": [
+        "Wajib/Lokal",
+        "Pilihan/Tambahan"
+      ]
+    },
+    "tujuan_pembelajaran": {
+      "type": "component",
+      "component": "mata-pelajaran.tujuan-pembelajaran-item",
+      "repeatable": true
+    },
+    "kompetensi_yang_dikembangkan": {
+      "type": "component",
+      "component": "mata-pelajaran.kompetensi-item",
+      "repeatable": true
+    }
+  }
+}
