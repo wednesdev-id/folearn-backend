@@ -447,10 +447,11 @@ export interface ApiClassClass extends Struct.CollectionTypeSchema {
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::class.class'> &
       Schema.Attribute.Private;
+    materis: Schema.Attribute.Relation<'oneToMany', 'api::material.material'>;
     nama_kelas: Schema.Attribute.String & Schema.Attribute.Required;
     publishedAt: Schema.Attribute.DateTime;
-    slug: Schema.Attribute.UID;
-    subjects: Schema.Attribute.Relation<'oneToMany', 'api::subject.subject'>;
+    slug: Schema.Attribute.UID<'nama_kelas'>;
+    subjects: Schema.Attribute.Relation<'manyToMany', 'api::subject.subject'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -473,6 +474,7 @@ export interface ApiMaterialMaterial extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     deskripsi_materi: Schema.Attribute.Text;
     is_published: Schema.Attribute.Boolean;
+    kelas: Schema.Attribute.Relation<'manyToOne', 'api::class.class'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -481,7 +483,7 @@ export interface ApiMaterialMaterial extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     nama_materi: Schema.Attribute.String & Schema.Attribute.Required;
     publishedAt: Schema.Attribute.DateTime;
-    slug: Schema.Attribute.UID;
+    slug: Schema.Attribute.UID<'nama_materi'>;
     sub_materials: Schema.Attribute.Relation<
       'oneToMany',
       'api::sub-material.sub-material'
@@ -522,7 +524,7 @@ export interface ApiSubMaterialSubMaterial extends Struct.CollectionTypeSchema {
     nama_sub_materi: Schema.Attribute.String & Schema.Attribute.Required;
     no_urut: Schema.Attribute.Integer & Schema.Attribute.Required;
     publishedAt: Schema.Attribute.DateTime;
-    slug: Schema.Attribute.UID;
+    slug: Schema.Attribute.UID<'nama_sub_materi'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -541,7 +543,7 @@ export interface ApiSubjectSubject extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
-    class: Schema.Attribute.Relation<'manyToOne', 'api::class.class'>;
+    classes: Schema.Attribute.Relation<'manyToMany', 'api::class.class'>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -563,7 +565,7 @@ export interface ApiSubjectSubject extends Struct.CollectionTypeSchema {
     materials: Schema.Attribute.Relation<'oneToMany', 'api::material.material'>;
     nama_mapel: Schema.Attribute.String & Schema.Attribute.Required;
     publishedAt: Schema.Attribute.DateTime;
-    slug: Schema.Attribute.UID;
+    slug: Schema.Attribute.UID<'nama_mapel'>;
     tujuan_pembelajaran: Schema.Attribute.Component<
       'mata-pelajaran.tujuan-pembelajaran-item',
       true

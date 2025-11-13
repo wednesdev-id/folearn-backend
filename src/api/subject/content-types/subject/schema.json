@@ -16,7 +16,8 @@
       "required": true
     },
     "slug": {
-      "type": "uid"
+      "type": "uid",
+      "targetField": "nama_mapel"
     },
     "deskripsi": {
       "type": "text"
@@ -31,9 +32,9 @@
         "audios"
       ]
     },
-    "class": {
+    "classes": {
       "type": "relation",
-      "relation": "manyToOne",
+      "relation": "manyToMany",
       "target": "api::class.class",
       "inversedBy": "subjects"
     },

@@ -16,13 +16,20 @@
       "required": true
     },
     "slug": {
-      "type": "uid"
+      "type": "uid",
+      "targetField": "nama_kelas"
     },
     "subjects": {
       "type": "relation",
-      "relation": "oneToMany",
+      "relation": "manyToMany",
       "target": "api::subject.subject",
-      "mappedBy": "class"
+      "mappedBy": "classes"
+    },
+    "materis": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::material.material",
+      "mappedBy": "kelas"
     }
   }
 }
