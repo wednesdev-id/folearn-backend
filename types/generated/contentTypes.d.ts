@@ -447,11 +447,10 @@ export interface ApiClassClass extends Struct.CollectionTypeSchema {
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::class.class'> &
       Schema.Attribute.Private;
-    materis: Schema.Attribute.Relation<'oneToMany', 'api::material.material'>;
     nama_kelas: Schema.Attribute.String & Schema.Attribute.Required;
     publishedAt: Schema.Attribute.DateTime;
     slug: Schema.Attribute.UID<'nama_kelas'>;
-    subjects: Schema.Attribute.Relation<'manyToMany', 'api::subject.subject'>;
+    subjects: Schema.Attribute.Relation<'oneToMany', 'api::subject.subject'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -474,7 +473,6 @@ export interface ApiMaterialMaterial extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     deskripsi_materi: Schema.Attribute.Text;
     is_published: Schema.Attribute.Boolean;
-    kelas: Schema.Attribute.Relation<'manyToOne', 'api::class.class'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -543,7 +541,7 @@ export interface ApiSubjectSubject extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
-    classes: Schema.Attribute.Relation<'manyToMany', 'api::class.class'>;
+    class: Schema.Attribute.Relation<'manyToOne', 'api::class.class'>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;

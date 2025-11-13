@@ -36,12 +36,6 @@
       "relation": "oneToMany",
       "target": "api::sub-material.sub-material",
       "mappedBy": "material"
-    },
-    "kelas": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::class.class",
-      "inversedBy": "materis"
     }
   }
 }

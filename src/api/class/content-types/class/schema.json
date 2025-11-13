@@ -21,15 +21,9 @@
     },
     "subjects": {
       "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::subject.subject",
-      "mappedBy": "classes"
-    },
-    "materis": {
-      "type": "relation",
       "relation": "oneToMany",
-      "target": "api::material.material",
-      "mappedBy": "kelas"
+      "target": "api::subject.subject",
+      "mappedBy": "class"
     }
   }
 }
