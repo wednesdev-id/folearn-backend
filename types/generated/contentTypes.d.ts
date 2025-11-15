@@ -547,9 +547,6 @@ export interface ApiSubjectSubject extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     deskripsi: Schema.Attribute.Text;
     icon: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
-    katergori_mapel: Schema.Attribute.Enumeration<
-      ['Wajib/Lokal', 'Pilihan/Tambahan']
-    >;
     kompetensi_yang_dikembangkan: Schema.Attribute.Component<
       'mata-pelajaran.kompetensi-item',
       true
@@ -1029,7 +1026,6 @@ export interface PluginUsersPermissionsUser
   };
   options: {
     draftAndPublish: false;
-    timestamps: true;
   };
   attributes: {
     blocked: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
@@ -1049,6 +1045,7 @@ export interface PluginUsersPermissionsUser
       'plugin::users-permissions.user'
     > &
       Schema.Attribute.Private;
+    nama: Schema.Attribute.String;
     password: Schema.Attribute.Password &
       Schema.Attribute.Private &
       Schema.Attribute.SetMinMaxLength<{

@@ -44,13 +44,6 @@
       "target": "api::material.material",
       "mappedBy": "subject"
     },
-    "katergori_mapel": {
-      "type": "enumeration",
-      "enum": [
-        "Wajib/Lokal",
-        "Pilihan/Tambahan"
-      ]
-    },
     "tujuan_pembelajaran": {
       "type": "component",
       "component": "mata-pelajaran.tujuan-pembelajaran-item",
