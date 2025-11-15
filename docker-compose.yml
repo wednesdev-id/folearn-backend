@@ -1,0 +1,46 @@
+version: "3.8"
+
+services:
+  strapi:
+    build: .
+    container_name: folearn-backend
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      NODE_ENV: production
+      DATABASE_CLIENT: postgres
+      DATABASE_HOST: db
+      DATABASE_PORT: 5432
+      DATABASE_NAME: ${DATABASE_NAME:-strapi}
+      DATABASE_USERNAME: ${DATABASE_USERNAME:-strapi}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD:-strapi}
+      APP_KEYS: ${APP_KEYS}
+      API_TOKEN_SALT: ${API_TOKEN_SALT}
+      ADMIN_JWT_SECRET: ${ADMIN_JWT_SECRET}
+      JWT_SECRET: ${JWT_SECRET}
+      HOST: 0.0.0.0
+      PORT: 1337
+      URL: ${PUBLIC_URL:-http://localhost:1337}
+    volumes:
+      - ./public/uploads:/srv/app/public/uploads
+    depends_on:
+      - db
+    ports:
+      - "1337:1337"
+
+  db:
+    image: postgres:15-alpine
+    container_name: folearn-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${DATABASE_NAME:-strapi}
+      POSTGRES_USER: ${DATABASE_USERNAME:-strapi}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD:-strapi}
+    volumes:
+      - strapi_pg_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+volumes:
+  strapi_pg_data:

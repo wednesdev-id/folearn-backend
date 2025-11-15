@@ -1,0 +1,14 @@
+node_modules
+.cache
+build
+.git
+.vscode
+Dockerfile*
+docker-compose*.yml
+.env*
+uploads
+public/uploads
+coverage
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
