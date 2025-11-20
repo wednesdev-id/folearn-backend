@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   strapi:
-    build: .
+    image: ghcr.io/fakhrin31/folearn-backend/strapi:latest
     container_name: folearn-backend
     restart: unless-stopped
     env_file:
