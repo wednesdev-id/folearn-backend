@@ -58,4 +58,39 @@ Feel free to check out the [Strapi GitHub repository](https://github.com/strapi/
 
 ---
 
+## 🐳 Jalankan di Docker Lokal
+
+- Pastikan `docker-compose.yml` sudah benar: Strapi pada `ports: "8000:1337"`, MySQL tanpa port host (akses internal Docker), dan `depends_on` memakai `service_healthy`.
+- Pastikan `.env` berisi kredensial yang konsisten untuk MySQL (contoh di bawah).
+
+### Variabel lingkungan yang direkomendasikan
+
+- `DATABASE_CLIENT=mysql`
+- `DATABASE_HOST=mysql`
+- `DATABASE_PORT=3306`
+- `DATABASE_NAME=strapi`
+- `DATABASE_USERNAME=strapi`
+- `DATABASE_PASSWORD=strapi`
+- `PUBLIC_URL=http://localhost:8000`
+- `APP_KEYS, API_TOKEN_SALT, ADMIN_JWT_SECRET, JWT_SECRET` wajib diisi.
+
+### Langkah menjalankan (butuh konfirmasi sebelum eksekusi)
+
+1. Bangun ulang image untuk mendapatkan perubahan terbaru.
+   - `docker compose build --no-cache`
+2. Jalankan stack (membuat jaringan dan volume otomatis).
+   - `docker compose up -d --remove-orphans`
+3. Verifikasi layanan:
+   - Strapi: buka `http://localhost:8000/admin`
+   - Cek log: `docker compose logs -f strapi` dan `docker compose logs -f mysql`
+   - Cek kesehatan MySQL: `docker compose ps` harus menunjukkan `healthy` pada `folearn-mysql`.
+
+### Troubleshooting umum
+
+- Port 8000 terpakai: ubah `ports` di service `strapi` menjadi `"8080:1337"` dan set `PUBLIC_URL=http://localhost:8080`.
+- MySQL gagal start karena port 3306 konflik: jangan expose port MySQL ke host (hapus `ports` pada service `mysql`). Strapi tetap bisa mengakses via jaringan internal (`mysql:3306`).
+- Gagal `npm ci` saat build (ECONNRESET): cek koneksi internet atau proxy. Pertimbangkan mirror registry atau jalankan build ulang.
+
+> Catatan: Perintah Docker di atas memerlukan konfirmasi sebelum dijalankan sesuai aturan proyek.
+
 <sub>🤫 Psst! [Strapi is hiring](https://strapi.io/careers).</sub>
