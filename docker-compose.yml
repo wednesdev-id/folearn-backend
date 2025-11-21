@@ -2,8 +2,7 @@ version: "3.8"
 
 services:
   strapi:
-    image: folearn-backend:latest
-    pull_policy: never
+    build: .
     container_name: folearn-backend
     restart: unless-stopped
     env_file:
